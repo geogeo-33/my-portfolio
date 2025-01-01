@@ -1,7 +1,26 @@
 'use client';
-import React from 'react';
+import React, { ChangeEvent, FormEvent } from 'react';
 
-const Todo = (props: any) => {
+// Todoの型を定義
+interface Todo {
+  id: number;
+  title: string;
+  complete: boolean;
+}
+
+// Todoコンポーネントの型定義
+interface TodoProps {
+  todo: Todo;
+  onDeleteClick: (id: number) => void;
+  onChangeClick: (id: number) => void;
+}
+
+// AddFormコンポーネントの型定義
+interface AddFormProps {
+  onSubmit: (title: string) => void;
+}
+
+const Todo = (props: TodoProps) => {
       
   const handleCheck = () => {
     props.onChangeClick(props.todo.id);
@@ -29,15 +48,15 @@ const Todo = (props: any) => {
   );
 };
 
-const AddForm = (props: any) => {
+const AddForm = (props: AddFormProps) => {
   const [title, setTitle] = React.useState('');
   const inputRef = React.useRef(null);
 
-  const handleTextChange = (e: any) => {
+  const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.currentTarget.value);
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     props.onSubmit(title);
     setTitle('');
@@ -70,6 +89,7 @@ const App = () => {
   //   setTodos(savedTodos);
   // });
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   const updateTodos = (newTodos: any) => {
     setTodos(newTodos);
     localStorage.setItem('todos', JSON.stringify(newTodos));
@@ -79,13 +99,15 @@ const App = () => {
       if (!confirm('Sure?')) {
       return;
     }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
       const newTodos = todos.filter((todo: any) => {
         return todo.complete === false;
       });
       updateTodos(newTodos);
     }
 
-    const handleAddFormSubmit = (title: any) => {
+    const handleAddFormSubmit = (title: string) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const newTodos: any = [...todos];
       newTodos.push({
         id: Date.now(),
@@ -95,8 +117,8 @@ const App = () => {
       updateTodos(newTodos);
     };
 
-  const handleTodoCheckboxChange = (id: any) => {
-    const newTodos = todos.map((todo: any) => {
+  const handleTodoCheckboxChange = (id: number) => {
+    const newTodos = todos.map((todo: Todo) => {
       return {
         id: todo.id,
         title: todo.title,
@@ -106,17 +128,17 @@ const App = () => {
     updateTodos(newTodos);
   };
 
-  const handleTodoDeleteClick = (id: any) => {
+  const handleTodoDeleteClick = (id: number) => {
     if (!confirm('Sure?')) {
       return;
     }
-    const newTodos = todos.filter((todo: any) => {
+    const newTodos = todos.filter((todo: Todo) => {
       return todo.id !== id;
     });
     updateTodos(newTodos);
   };
 
-  const todoItems = todos.map((todo: any) => {
+  const todoItems = todos.map((todo: Todo) => {
     return (
       <Todo 
       key={todo.id}
