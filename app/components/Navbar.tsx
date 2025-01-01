@@ -4,13 +4,13 @@ const Navbar = () => {
   return (
     <nav className="bg-gray-800 text-white py-4">
       <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-2xl font-bold">My Portfolio</h1>
+        <Link href="/" className="text-2xl font-bold">George's Portfolio</Link>
         <ul className="flex space-x-4">
           <li>
-            <Link href="#about" className="hover:text-gray-300">About</Link>
+            <Link href="/#about" className="hover:text-gray-300">About</Link>
           </li>
           <li>
-            <Link href="#projects" className="hover:text-gray-300">Projects</Link>
+            <Link href="/#projects" className="hover:text-gray-300">Projects</Link>
           </li>
           <li>
             <Link href="#contact" className="hover:text-gray-300">Contact</Link>
