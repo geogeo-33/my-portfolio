@@ -4,7 +4,7 @@ const About = () => {
       <div className="container mx-auto text-center">
         <h2 className="text-3xl font-bold mb-4">About Me</h2>
         <p className="text-gray-700">
-          Hello! I'm a web developer with a passion for creating beautiful and functional websites.
+          Hello! I&apos;m a web developer with a passion for creating beautiful and functional websites.
         </p>
       </div>
     </section>
