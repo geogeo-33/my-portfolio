@@ -16,7 +16,6 @@ export default function Home() {
     await sql('INSERT INTO comments (comment) VALUES ($1)', [comment]);
   }
 
-
   return (
     <div>
       <Navbar />
